@@ -17,40 +17,8 @@
       * 把一个本地地址赋予一个套接字，给一个地址，bind告诉socket将要用哪个地址
       
 ---
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-<br><br><br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 ## 3.listen函数
-
 ## 4.open函数
 
       
