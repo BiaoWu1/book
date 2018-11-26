@@ -29,7 +29,7 @@
     - [2.string](#2string)
         - [2.1初始化](#21初始化)
         - [2.2string对象上的操作](#22string对象上的操作)
-    - [3.标准库类型Vector](#3标准库类型Vector)
+    - [3.标准库类型vector](#3标准库类型vector)
     
 <h2 id="ch2"></h2>
 
@@ -475,7 +475,7 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
     <br>
     <br>
     
-## 3 标准库类型vector
+## 3.标准库类型vector
 
 ### 3.1 定义和初始化vector对象
 
