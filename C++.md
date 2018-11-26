@@ -553,7 +553,7 @@ const char a4[6] = "Daniel";          //错误，没有空间存放空字符
 
     * begin和end的用法
         * begin(a), end(a): 其中a是内置数组类型，返回值为指针
-        >> auto n = end(a) - begin(a);  //n表示内置数组的大小
+       >> auto n = end(a) - begin(a);  //n表示内置数组的大小
     
 * C风格字符串
 
