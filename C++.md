@@ -30,6 +30,12 @@
         - [2.1初始化](#21初始化)
         - [2.2string对象上的操作](#22string对象上的操作)
     - [3.标准库类型vector](#3标准库类型vector)
+        - [3.1定义和初始化vector对象](#31定义和初始化vector对象)
+        - [3.2向vector中添加元素](#32向vector中添加元素)
+        - [3.3其他vector操作](#33其他vector操)
+    - [4.迭代器介绍](#4迭代器介绍)
+    - [5.数组](#5数组)
+    
     
 <h2 id="ch2"></h2>
 
@@ -512,7 +518,7 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
 * size(): 返回vector容器中的元素的个数
 * v[n]: 返回第n个位置上元素的引用
 
-### 3.4 迭代器介绍
+## 4.迭代器介绍
 
 * begin和end运算符
     * begin包括begin()和cbegin()
@@ -524,9 +530,9 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
     * iter1 -= n
     * iter1 - iter2
     
-### 3.5 数组
+## 5.数组
 
-#### 1）定义和初始化内置数组
+ * 定义和初始化内置数组
 
 > 内置数组的数组维度必须是常量表达式(constexpr)
 
@@ -537,30 +543,30 @@ string bad[cnt];       //错误定义
 string good[sz];       //正确定义
 ```
 
-#### 2) 字符数字的特性
+* 字符数字的特性
 
 ```C++
 const char a4[6] = "Daniel";          //错误，没有空间存放空字符
 ```
 
-#### 3) 标准库函数begin和end
+* 标准库函数begin和end
 
-* begin和end的用法
-    * begin(a), end(a): 其中a是内置数组类型，返回值为指针
-    > auto n = end(a) - begin(a);  //n表示内置数组的大小
+    * begin和end的用法
+        * begin(a), end(a): 其中a是内置数组类型，返回值为指针
+        >> auto n = end(a) - begin(a);  //n表示内置数组的大小
     
-#### 4) C风格字符串
+* C风格字符串
 
-* strlen()函数直到遇见空字符才结束
+    * strlen()函数直到遇见空字符才结束
 
 ```C++
 char ca[] = {'C', '+', '+'};
 cout << strlen(ca) << endl;   //严重错误：ca没有以空字符结尾，stren函数可能沿着ca在内存中的位置不断寻找，直到遇见空字符才结束
 ```
-#### 5) 与旧代码的接口
+* 与旧代码的接口
 
-* string转化为const char* :
-> const char* str = s.c_str();
+    * string转化为const char* :
+>> const char* str = s.c_str();
 
 
 <br>
