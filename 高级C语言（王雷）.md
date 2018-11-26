@@ -2,6 +2,7 @@
     - [1.connect函数](#1connect函数)
     - [2.bind函数](#2bind函数)
     - [3.listen函数](#3listen函数)
+    - [4.open函数](#4open函数)
 # 一、上课内容
 
 ## 1.connect函数
@@ -49,6 +50,8 @@
 <br>
 
 ## 3.listen函数
+
+## 4.open函数
 
       
     
