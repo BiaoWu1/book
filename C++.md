@@ -26,7 +26,10 @@
 
 * [容器操作](#容器操作)
     - [1.using命名空间](#1using命名空间)
-    - [2.初始化](#2初始化)
+    - [2.string](#2string)
+        - [2.1初始化](#21初始化)
+        - [2.2string对象上的操作](#22string对象上的操作)
+    - [3.标准库类型Vector](#3标准库类型Vector)
     
 <h2 id="ch2"></h2>
 
@@ -376,7 +379,7 @@ const与指针的类型别名使用时，还原别名来理解const的限定是�
 <br>
 <br>
 
-# 容器操作
+# 一、容器操作
 
 ## 1.using命名空间
 
@@ -393,9 +396,172 @@ std::list<int> lst;
 std::deque<int> lst1;
 std::forward_list lst2;
 ```
-## 2.初始化
 
-### 2.1
+<br>
+<br>
+<br>
+
+## 2.string
+
+### 2.1初始化
+
+#### 1)直接初始化
+
+```C++
+string s1("hiya");    //直接初始化
+string s2(10, 'c');   //直接初始化，**注意s2的第二个参数是字符**
+```
+#### 2)拷贝初始化
+
+```C++
+string s3 = "hiya";
+```
+### 2.2string对象上的操作
+
+#### 1）读写string对象
+
+```C++
+int main()
+{
+    string s;
+    cin >> s;            
+    cout << s << endl;
+    return 0;
+}
+```
+> 当输入是“   hello world！   ”时，只输出 hello （**自动忽略开头空白，从第一个真正的字符开始读数，直到遇见下一个空白符为止**）
+
+#### 2）使用getline读取一整行
+
+> getline(in, s):函数从**给定的流,可以是文件流**中读入内容，直到遇见换行符号为止；第一个为换行符号时，string为空
+
+#### 3）string::size_type类型
+
+* 无符号类型
+* size()函数返回值为size_type类型
+
+```
+一点建议：如果一条表达式中已经有了size()函数就不要再使用int了，可以避免混用int和unsigned可能带来的问题
+```
+#### 4) 比较string对象
+
+* 如果string对象的长度不同，而且较短string对象的每个字符都与较长string对象对应位置上的字符相同，那么较短的小于较长的string对象
+* 如果两个string在某个位置上的字符不相同，则比较结果时string对象中第一对相异字符的比较结果
+
+#### 5）string加法运算
+
+* 多个string对象相加
+* string对象和字面值常量相加：`确保加号（+）两边至少有一个时string对象`
+
+```C++
+string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对象
+//注意：字符串字面值与string是不同的类型**
+```
+#### 6) 处理string对象中的字符
+
+* 使用范围for循环
+* cctypr头文件
+    * isalnum(c)函数：当c是字母或者数字时为真
+    * isalpha(c)函数：当c是字母时为真
+    * iscntrl(c)函数：当c是控制字符时为真
+    * isdigit(c)函数：当c是数字时为真
+    * islower(c)函数：当c是小写字母时为真
+    * isupper(c)函数：当c是大写字母时为真
+    * isspace(c)函数：当c是空格时为真
+    * toupper(c)函数：将c转化为大写字母
+    * tolower(c)函数：将c转化为小写字母
+    
+    <br>
+    <br>
+    <br>
+    
+## 3 标准库类型vector
+
+### 3.1 定义和初始化vector对象
+
+#### 1) 列表初始化vector对象
+
+> vector<string> articles{"a", "an", "the"};<br>
+    vector<string> articles("a", "an", "the");   //错误
+    
+#### 2) 创建指定数量的元素
+
+> vector<int> vec(10, -1);   //表示10个值为-1的函数
+    
+#### 3) 值初始化
+
+> vector<int> (10);       //创建10个元素，每个都初始化为0
+    
+>> 注意点：
+          vector<int> vec1(10， 1);     //表示10个1<br>
+          vector<int> vec2{10, 1};      //表示两个元素10和1<br>
+          vector<string> vec3{10, "a"}; //表示10个元素a<br>
+          vector<string> vec4(10, "a"); //表示10个元素a<br>
+
+### 3.2 向vector中添加元素
+
+* 使用push_back()进行元素的添加
+
+```
+1.vector对象的高速增长：定义vector的时候不设置其大小
+2.如果循环体内部含有向vector对象中添加元素的操作，那么就不能使用for循环（由于添加元素会导致尾后迭代器失效）
+```
+### 3.3 其他vector操作
+
+* empty(): 为空，返回true，否则返回false
+* size(): 返回vector容器中的元素的个数
+* v[n]: 返回第n个位置上元素的引用
+
+### 3.4 迭代器介绍
+
+* begin和end运算符
+    * begin包括begin()和cbegin()
+    * end包括end()和cend()
+* 迭代器运算
+    * iter + n    迭代器加上一个整数仍然得到迭代器，最终指向一个元素或者未定义
+    * iter - n    迭代器减去一个整数仍然得到迭代器，最终指向一个元素或者未定义
+    * iter1 += n
+    * iter1 -= n
+    * iter1 - iter2
+    
+### 3.5 数组
+
+#### 1）定义和初始化内置数组
+
+> 内置数组的数组维度必须是常量表达式(constexpr)
+
+```C++
+unsigned cnt = 42；      //非常量表达式
+constexpr unsigned sz = 42;  //常量表达式
+string bad[cnt];       //错误定义
+string good[sz];       //正确定义
+```
+
+#### 2) 字符数字的特性
+
+```C++
+const char a4[6] = "Daniel";          //错误，没有空间存放空字符
+```
+
+#### 3) 标准库函数begin和end
+
+* begin和end的用法
+    * begin(a), end(a): 其中a是内置数组类型，返回值为指针
+    > auto n = end(a) - begin(a);  //n表示内置数组的大小
+    
+#### 4) C风格字符串
+
+* strlen()函数直到遇见空字符才结束
+
+```C++
+char ca[] = {'C', '+', '+'};
+cout << strlen(ca) << endl;   //严重错误：ca没有以空字符结尾，stren函数可能沿着ca在内存中的位置不断寻找，直到遇见空字符才结束
+```
+#### 5) 与旧代码的接口
+
+* string转化为const char* :
+> const char* str = s.c_str();
+
 
 <br>
 <br>
