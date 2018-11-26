@@ -5,11 +5,11 @@
   ---
   
   
-## 一、上课内容1
-### 1.connect函数
+# 一、上课内容1
+## 1.connect函数
  * 作用：应用层通过调用connect函数进行传输层的Tcp握手
 ---
-### 2.bind函数
+## 2.bind函数
  `#include <sys/socket.h>
    int bind(int sockfd, const struct sockaddr *myaddr, socklen_t addrlen);` <br>
     * 作用：
@@ -17,7 +17,7 @@
       
 ---
 
-### 3.listen函数
+## 3.listen函数
  * 
       
     
