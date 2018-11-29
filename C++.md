@@ -661,6 +661,8 @@ p.first p.second                 //返回名为first和second的（公有）数�
  c.lower_bound(k)                       //返回一个迭代器，指向第一个关键字不小于k的元素
  c.upper_bound(k)                       //返回一个迭代器，指向第一个关键字大于k的元素
  c.equal_range(k)                       //返回一个迭代器pair，表示关键字k的元素的范围
+ ```
+ 
 <br>
 <br>
 # 模板与泛型编程
