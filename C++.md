@@ -488,7 +488,7 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
     
 ## 3.标准库类型vector
 
-### 3.1 定义和初始化vector对象
+### 3.1定义和初始化vector对象
 
 #### 1) 列表初始化vector对象
 
@@ -509,7 +509,7 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
           vector<string> vec3{10, "a"}; //表示10个元素a<br>
           vector<string> vec4(10, "a"); //表示10个元素a<br>
 
-### 3.2 向vector中添加元素
+### 3.2向vector中添加元素
 
 * 使用push_back()进行元素的添加
 
@@ -517,7 +517,7 @@ string s6 = s1 + "," + "world";    //正确，s1加完","后是一个string对�
 1.vector对象的高速增长：定义vector的时候不设置其大小
 2.如果循环体内部含有向vector对象中添加元素的操作，那么就不能使用for循环（由于添加元素会导致尾后迭代器失效）
 ```
-### 3.3 其他vector操作
+### 3.3其他vector操作
 
 * empty(): 为空，返回true，否则返回false
 * size(): 返回vector容器中的元素的个数
