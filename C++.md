@@ -601,7 +601,31 @@ p.first p.second                 //返回名为first和second的（公有）数�
 
 ### 6.2关联容器操作
 
+```C++
+                            **关联容器额外的类型别名**
+ key_type               此容器类型的关键字类型
+ mapped_type            关键字关联的类型，只适用于map
+ value_type             若是set，即key_type
+                        若是map，即pair<const key_type, mapped_type>
+ ```
+ * 关联容器迭代器
+ 
+ ```C++
+ map容器的元素（pair）的first是不可更改的，为const，也即map的关键字是不可更改的，set的关键字也是不可更改的
+ 
+ auto map_it = word_count.begin();        //word_count是pair<const string, size_t>类型
+ map_it->first = "new key";               //错误，不可更改const值
+ set<int> iset = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+ set<int>::iterator beg = iset.begin();
+ if(beg != iset.end())
+ {
+          *beg  = 42;        //错误，由于set的关键字是const类型，不可更改
+ }
+ ```
+ 
 
+ 
+ 
 <br>
 <br>
 # 模板与泛型编程
