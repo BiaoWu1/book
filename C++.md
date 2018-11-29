@@ -36,7 +36,9 @@
     - [4.迭代器介绍](#4迭代器介绍)
     - [5.数组](#5数组)
     - [6.关联容器](#6关联容器)
-        - [6.1关联容器概述](#关联容器概述)
+        - [6.1关联容器概述](#61关联容器概述)
+        - [6.2关联容器操作](#62关联容器操作)
+        - [6.3无序容器](#63无序操作)
         
     
     
@@ -570,6 +572,34 @@ cout << strlen(ca) << endl;   //严重错误：ca没有以空字符结尾，stre
 
     * string转化为const char* :
 >> const char* str = s.c_str();
+
+## 6.关联容器
+
+### 6.1 关联容器概述
+
+* 关联容器定义
+```C++
+map<string, size_t> word_count;       //空map容器
+//列表初始化
+set<string> exclude = { "the", "an", "but", "and" };
+map<string, string> authors = {  {"Joine", "Tom"}
+                                 {"Wubiao", "Xuexi"} };
+```
+* 关联容器初始化，可以使用顺序容器的初始化方式
+
+> set<int> iset(ivec.begin(), ivec.end());    //其中ivec是vector<int> <br>
+    
+* pair类型
+
+```C++             
+                         **pair上的操作**
+pair<T1, T2>  p;                 //p是两个类型分别是T1和T2的pair，进行值初始化
+pair<T1, T2>  p(v1, v2);         //p是用v1和v2初始化的pair
+make_pair(v1, v2)                //返回一个用v1和v2初始化的pair类型，pair类型的数据类型由v1和v2推断而来
+p.first p.second                 //返回名为first和second的（公有）数据成员
+```
+
+### 6.2关联容器操作
 
 
 <br>
