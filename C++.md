@@ -623,9 +623,44 @@ p.first p.second                 //返回名为first和second的（公有）数�
  }
  ```
  
-
+ * 添加元素
  
+ > 有序容器map，set mutlimap， multiset添加相同元素时对容器无任何影响<br>
+    * 向map中添加元素
+    
+    ```c++
+    word_count.insert( { word, 1 } );
+    word.count.insert( make_pair(word, 1) );
+    word.count.insert( pair<string, size_t> (word, 1) );
+    word.count.insetr( map<string, size_t>::value_type ( word, 1 ) );
+    c.insert(p, v)            //插入b，e迭代器之间的元素
+    ```
+   * insert返回值
+    * 若插入成功，返回一个pair，pair的first成员是一个指向关键字的迭代器，second返回true
+    * 若插入不成功，insert什么也不做，返回的second为false
+    
+ * 删除元素
  
+ ```C++
+                        **从关联容器中删除元素**
+ c.erase(K)              //删除关键字为K的元素，并返回一个size_type值，表示删除元素的个数
+ c.erase(p)              //删除迭代器p指定的元素，返回指向p之后的迭代器
+ c.erase(b, e)           //删除迭代器指定范围的元素，返回指向e之后的迭代器
+ ```
+ 
+ * map的下标操作
+    * c[k]操作:返回关键字为k的关联的元素，若无关键字K,则添加关键字为k的元素，并进行值初始化
+    * c.at(k)操作:访问关键字为k的的关联的元素，k不在c中时，抛出out_of_range异常
+ * 访问元素
+ ```C++
+                            **查找元素的操作**
+ c.find(k)                              //返回一个迭代器，指向第一个关键字为k的元素，若k不在容器中，返回尾后迭代器
+ c.count(k)                             //返回关键字等于k的元素的数量
+ 
+ //lower_bound和upper_bound只适用于有序容器
+ c.lower_bound(k)                       //返回一个迭代器，指向第一个关键字不小于k的元素
+ c.upper_bound(k)                       //返回一个迭代器，指向第一个关键字大于k的元素
+ c.equal_range(k)                       //返回一个迭代器pair，表示关键字k的元素的范围
 <br>
 <br>
 # 模板与泛型编程
