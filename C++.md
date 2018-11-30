@@ -1468,6 +1468,7 @@ int *p3 = new int[5]{1,2,3,4,5};
 
 ## 2.智能指针
 
+** 最好使用智能指针，并且在初始化shared_ptr时最好使用make_shared来进行初始化（make_shared<int> p(9) ）**<br>
 ### 2.1 通用操作
 
 > 以下操作支持shared_ptr和unique_ptr
