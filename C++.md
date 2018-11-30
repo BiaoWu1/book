@@ -1542,6 +1542,13 @@ p.use_count();
 //若use_count()为1则返回true，否则返回false
 p.unique();
 ```
+#### 5）调用操作
+
+```c++
+//等价于(*p).mem
+p->men
+//对vector而言，mem有size(), begin(), end()等
+```
 
 ### 2.3 unique_ptr
 
