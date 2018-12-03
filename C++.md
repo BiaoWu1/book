@@ -83,6 +83,8 @@
 
 * [重载运算与类型转换](#重载运算与类型转换)
     - [1.重载运算基本要求](#1重载运算基本要求)
+    - [2.重载输入输出运算符](#2重载输入输出运算符)
+    - [3.重载递增递减运算符](#2重载递增递减运算符)
     
 <br>
 <br>
@@ -1687,16 +1689,18 @@ w.lock();
         + 调用（（））
         + 访问箭头(->)
     **这些必须是成员函数，由于赋值(=)、下表、调用、访问箭头的左侧都是左值**
-* 各种运算符重载要求
-    - 输入输出运算符必须是非成员的友元（friend)函数，返回值为引用类型
+    
+ ## 2.重载输入输出运算符
+ * 输入输出运算符必须是非成员的友元（friend)函数，返回值为引用类型
         + 如果是成员函数，那么也是iostream的成员，而iostream是属于标准库，我们无法给标准库中添加任何成员
         + IO运算符通常需要读写类的非公有数据成员，所以IO运算符一般被声明为友元
-        + />/>运算符：参数有两个，一个istream& is 和 非常量类成员的引用，由于输入会更改成员数据
-        + <<运算符：参数有两个，一个ostream& os 和 常量类成员的引用，由于一般输出不更改成员数据
+        + `>>`运算符：参数有两个，一个istream& is 和 非常量类成员的引用，由于输入会更改成员数据
+        + `<<`运算符：参数有两个，一个ostream& os 和 常量类成员的引用，由于一般输出不更改成员数据
         
         > 其中输入运算符必须处理输入失败的情况，输出不需要,添加一个if判断语句。
         
-    - 递增递减运算符：**改变的是所操作对象的状态，最好设置为成员函数**
+## 3.重载递增递减运算符：
+**改变的是所操作对象的状态，最好设置为成员函数**
         + 前置++（--）运算符：返回的是调用对象的引用
         
             > StrBlobPtr & operator++();
@@ -1712,7 +1716,93 @@ w.lock();
         p.operator++(0);           //显示调用后置++
         p.operator++();            //显示调用前置++
         ```
-        
+## 4.重载函数调用运算符:
+* 含有状态的函数对象类
+
+```c++
+class PrintString{
+public:
+    PrintString(ostream &o = cout, char c = ' '):os(o), sep(c){}
+    void operator()(const string &s1) { os << s << sep;}
+private:
+    ostream &os;
+    char sep;
+};
+for_each(vec.begin(), vec.end(), PrintString(cerr, '\n'));
+//PrintString先构建一个由cerr和'\n'初始化的临时对象，当函数调用for_each时，将每个元素一次打印到cerr中
+```
+* lambda是函数对象
+
+```c++
+class ShortString{
+public:
+    bool operator()(const string &s1, const string &s2){ return s1.size() < s2.size(); }
+};
+//ShortString通过（）构建临时对象；
+stable_sort(vec.begin(), vec.end(), ShortString());
+
+//进行值的捕获
+class SizeComp{
+public:
+    sizeComp(size_t n):sz(n){ }
+    bool operator()(const string &s) { return s.size() >= sz;}
+private:
+    size_t sz;
+};
+//类似于lambda的值捕获，先构建一个临时对象，sz被初始化为n，再调用（）运算符
+auto find = find_if(vec.begin(), vec.end(), SizeComp(n));
+```
+* 标准库定义的函数对象
+
+```c++
+算术                关系              逻辑
+plus<Type>       equal_to<Type>    logical_and<Type>
+minus<Type>      not_equal<Type>   logical_or<Type>
+multiplies<Type> greater<Type>     logical_not<Type>
+divides<Type>    greater_equal<Type> 
+......
+```
+
+* 可调用对象和function
+    + 定义函数表的错误方法(实现计算机的操作)
+    ```c++
+    //add函数
+    int add(int i, int j) {return i +j;}
+    //lambda表达式
+    auto mod = [](int i, int j) { return i % j; };
+    //函数对象类
+    struct divide{
+        int operator()(int denominator, int divisor) {
+            return denominator / divisor;
+        }
+    };
+    map<string, int(*)(int, int)> map1;
+    map1.insert({"+",add});
+    //不能将mod和divide加入到map1中，是因为mod不是函数指针
+    ```
+    + 正确方法，定义function（function在头文件functional中）
+    ```c++
+    map<string, function<int(int, int)>> map1 = {
+               {"+", add},
+               {"-", minus<int>()},
+               {"/", divide()},
+               {"*", [](int i, int j] { return i*j;}},
+               {"%", mod} };
+    map1["+"](10,5);
+    map1["-"](10,5);
+    map1["/"](10,5);
+    map1["*"](10,5);
+    map1["%"](10,5);
+    ```
+    **function和函数重载出现二义性问题解决方案**ssx
+    > int add(int i, int j) { return i + j; }<br>
+      Sale_data add(const Sale_data&, const Sale_data&);
+      1:使用函数执政进行存储 `int (*fp)(int, int) = add;`<br>
+      2:使用lambda表达式进行区分:`map1.insert( { "+", [](int a, int b) { **returb add(a, b)**;} };`<br>
+      
+      
+    
+
             
             
             
