@@ -42,7 +42,12 @@
 <h2 id="ch6"></h2>   
 
 * [面向对象](#面向对象)
-    - [
+    - [1.定义基类和派生类](#1定义基类和派生类)
+        + [1.1定义基类](#11定义基类)
+        + [1.2定义派生类](#12定义派生类)
+        ol
+        
+    - [3.
 <h2 id="ch2"></h2>
 
 * [模板与泛型编程](#模板与泛型编程)
@@ -685,6 +690,57 @@ p.first p.second                 //返回名为first和second的（公有）数�
    
 <br>
 <br>
+
+# 面向对象
+
+`面向对象的三个基本概念: 数据抽象、继承、动态绑定`
+
+## 1.定义基类和派生类
+
+### 1.1定义基类
+
+* **基类需要区分两类函数**
+    + 希望派生类进行覆盖的函数——通常基类将其定义为虚函数（virtual)
+    + 希望派生类直接继承而不进行修改的函数
+* **基类中的函数、成员的访问权限**
+    + 基类中的私有成员，派生类无法访问
+    + 基类中的public和protected成员派生类可以访问，其中protected不允许其他用户进行访问
+
+### 1.2定义派生类
+    
+* **派生类覆盖它继承的虚函数**
+    + 可以在继承的虚函数加关键字virtual（函数正式定义的时候不能加关键字virtual）
+    + 可以在继承的虚函数最后加override关键字
+* **派生类到基类的类型转化**
+
+```c++
+Quote item;       //基类对象
+Bulk_quote bulk;   //派生类对象
+Quote *p = item;   //p指向Quote对象
+p = &bulk;         //p指向Bulk_quote对象
+Quote &r = bulk;   //r绑定到bulk的Quote部分
+```
+**我们可以把派生类对象或者派生类的引用用在需要基类引用的地方；同时，我们也可以把派生类对象的指针用在需要基类指针的地方**<br>
+
+* **派生类构造函数**
+
+```c++
+Bulk_quote(const std::string& book, double p, std::size_t qty, double price):Quote(book, p), min_qyt(qty), discount(price) { }
+```
+> 首先初始化基类部分，再进行派生类的初始化
+
+* **派生类的声明**
+
+`class  Bulk_quote : public Quote;    //错误 <br>
+ calss Bulk_quote;                    //正确
+ `
+ * **派生类防止被继承**:`在类名后面添加final关键字防止被继承`
+ 
+ ```c++
+ class Base {  ····  };
+ class Last final : public Base {  ·····   };
+ ```
+ 
 
 # 模板与泛型编程
 
