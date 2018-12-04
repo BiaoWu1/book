@@ -374,6 +374,10 @@ int* p1, p2; //p1是一个int*，p2是一个int
 2. using（C++11)：`using SI = Sales_item;`
 
 const与指针的类型别名使用时，还原别名来理解const的限定是错误的
+```c++
+typedef char *pstring;      //pstring是指向char的指针
+const pstring cstr = 0;     //不能还原成 const char * cstr = 0 来理解，const pstring 表示指向char的常量指针
+```
 
 <br>
 
