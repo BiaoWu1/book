@@ -800,6 +800,79 @@ struct D3 : D2 {
 ```
 * 回避虚函数机制：使用作用域运算符 ::
  `一般在派生类虚函数需要调用基类的虚函数版本时会回避虚函数默认机制` <br>
+ 
+ ## 3.抽象基类
+ 
+ * 纯虚函数
+ `纯虚函数无需定义`<br>
+    + 声明：`double net_price(std::size_t) const = 0;`在虚函数的基础上进行纯虚函数的声明；
+    + 纯虚函数无需定义
+* 抽象基类：含有（或者未经覆盖直接继承）虚函数的类时**抽象基类**
+    + 抽线基类的作用：负责定义接口
+    + 不允许创抽象基类的对象
+    
+## 4.访问控制与继承
+* 派生类无法直接访问基类的私有成员，派生类的成员函数或者友元函数可以访问基类的受保护成员
+* 受保护的成员：`规定：派生类的成员和友元只能访问派生类对象中的基类部分的受保护成员，并且只能通过派生类 对象 来访问基类受保护成员`
+
+```c++
+class Base{
+protected:
+    int prot_mem;
+};
+
+class Sneaky : public Base{
+    friend void clobber(Sneaky &s);        //能访问Sneaky::prot_mem
+    friend void colbber(Base &B);          //不能访问Base::prot_mem
+    int j;
+};
+
+void clobber(Sneaky &s) { s.j = s.prot_mem = 0; }   //相当于访问自己继承过来的prot_mem
+void clobber(Base &B) { b.prot_men = 0; }           //错误，clobber不能访问Base的protected成员
+```
+* 公有、私有、受保护继承
+    * 派生访问说明符的作用：
+        - **不影响派生类的成员（友元）访问基类的成员**
+        - **影响控制派生类的用户对基类成员的访问权限**
+```c++
+class Base{
+public:
+    void pub_mem(); 
+protected:
+    int prot_mem;
+private:
+    char priv_mem;
+};
+
+struct Pub_Derv : public Base{
+    int f() { return prot_mem;}    //正确，允许访问基类的protected成员
+    char g() { return priv_mem; }   //错误：不允许访问基类的private成员
+}；
+struct Priv_Derv : private Base{
+    int f1()const { return prot_mem; }     //正确：private不影响派生类的访问权限
+}；
+
+//影响派生类用户对基类成员的访问
+Pub_Derv d1;
+Priv_derv d2;
+d1.pub_mem();       //正确：pub_men在派生类中式是public的
+d2.pub_mem();       //错误：pub_mem在派生类中式private的，影响了派生类用户对基类成员的访问
+```
+* 
+    * 友元不能继承
+    * using更改个别成员的可访问性:将该类的直接或者间接**基类**中的任何可访问成员标记起来
+        - using出现在类的private部分时，那么该名字可以被类的成员和友元访问
+        - using出现在类的public部分时，那么类的所有用户都能看的到它
+        - using出现在类的protected部分时，那么该名字对于成员、友元和派生类是可访问的
+        `相当于向上提升一个访问等级`<br>
+```c++
+class Derived : private Base{
+public:
+    using Base::size;   //所有用户均能访问，例如 Dervied D；  D.size = 0；   应该是可以的。
+protected:
+    using Base::n;
+};
+
 
 # 模板与泛型编程
 
